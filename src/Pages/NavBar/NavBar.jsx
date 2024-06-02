@@ -1,8 +1,22 @@
+import { Avatar, Dropdown } from "flowbite-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useAuth from "../../Hooks/useAuth/useAuth";
+import Swal from "sweetalert2";
 
 const NavBar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const { User, logOut } = useAuth();
+
+  const handleLogOut = () => {
+    logOut();
+    Swal.fire({
+      title: "Sing Out Successful!",
+      text: "You clicked the button!",
+      icon: "success",
+    });
+  };
+
   const toggleDropdown = () => {
     setDropdownOpen(!dropdownOpen);
   };
@@ -62,11 +76,13 @@ const NavBar = () => {
                 <a>Apartment</a>
               </li>
             </Link>
-            <Link to="/" onClick={closeDropdown}>
-              <li>
-                <a>Sing Up</a>
-              </li>
-            </Link>
+            {!User && (
+              <Link to="/singUp" onClick={closeDropdown}>
+                <li>
+                  <a>Sing Up</a>
+                </li>
+              </Link>
+            )}
           </ul>
         </div>
       </div>
@@ -94,45 +110,45 @@ const NavBar = () => {
           </Link>
         </ul>
       </div>
+
       <div className="navbar-end gap-3">
-        <button className=" btn  ">Sing In</button>
-        <button className="btn hidden lg:block">Sing Up</button>
-
-        <div className="dropdown dropdown-end " onClick={toggleDropdown}>
-          <div
-            tabIndex={0}
-            role="button"
-            className="btn btn-ghost btn-circle avatar"
-          >
-            <div className="w-10 rounded-full">
-              <img
-                alt="Tailwind CSS Navbar component"
-                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"
-              />
-            </div>
+        {!User && (
+          <div className="flex gap-4">
+            <Link to="/singIn">
+              {" "}
+              <button className=" btn  ">Sing In</button>
+            </Link>
+            <Link to="/singUp">
+              <button className="btn hidden lg:block">Sing Up</button>
+            </Link>
           </div>
-          <ul
-            tabIndex={0}
-            className={`menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 ${
-              dropdownOpen ? "block" : "hidden"
-            }`}
-          >
-            <Link to="/">
-              <li>
-                <a className="justify-between">
-                  Dashboard
-                  <span className="badge">New</span>
-                </a>
-              </li>
-            </Link>
+        )}
+        {User && (
+          <div>
+            <Dropdown
+              arrowIcon={false}
+              inline
+              label={
+                <Avatar
+                  alt="User settings"
+                  img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
+                  rounded
+                />
+              }
+            >
+              <Dropdown.Header>
+                <span className="block text-sm">{User?.displayName}</span>
+                <span className="block truncate text-sm font-medium">
+                  {User?.email}
+                </span>
+              </Dropdown.Header>
+              <Dropdown.Item>Dashboard</Dropdown.Item>
 
-            <Link to="/apartMent">
-              <li>
-                <a>Logout</a>
-              </li>
-            </Link>
-          </ul>
-        </div>
+              <Dropdown.Divider />
+              <Dropdown.Item onClick={handleLogOut}>Sign out</Dropdown.Item>
+            </Dropdown>
+          </div>
+        )}
       </div>
     </div>
   );
