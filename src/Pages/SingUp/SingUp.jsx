@@ -85,10 +85,10 @@ const SingUp = () => {
               {/* form */}
               <div className="md:w-1/2 px-8 md:px-16">
                 <h2 className="font-bold text-2xl text-[#002D74]">
-                  Register Now!
+                  Sing Up Now!
                 </h2>
                 <p className="text-xs mt-4 text-[#002D74]">
-                  If you are not a member, Please Register
+                  If you are not a member, Please Sing Up
                 </p>
                 <form
                   onSubmit={handleSubmit(onSubmit)}
@@ -181,7 +181,7 @@ const SingUp = () => {
               <div className="md:block hidden w-1/2">
                 <img
                   className="rounded-2xl"
-                  src="https://i.postimg.cc/qv2cpRb6/Regisration.jpg"
+                  src="https://i.postimg.cc/CLv18FL2/Default-Building-Management-Registration-page-image-purple-and-1.jpg"
                 />
               </div>
             </div>
