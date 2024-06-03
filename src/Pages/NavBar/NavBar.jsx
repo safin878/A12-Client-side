@@ -1,19 +1,36 @@
+import { useState, useEffect } from "react";
 import { Avatar, Dropdown } from "flowbite-react";
-import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import Swal from "sweetalert2";
 import "./NavBar.css";
+
 const NavBar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [navbarScrolled, setNavbarScrolled] = useState(false);
   const { User, logOut } = useAuth();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setNavbarScrolled(true);
+      } else {
+        setNavbarScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
 
   const handleLogOut = () => {
     logOut();
     Swal.fire({
       position: "center",
       icon: "success",
-      title: "Sing Out Successful",
+      title: "Sign Out Successful",
       showConfirmButton: false,
       timer: 1500,
     });
@@ -28,18 +45,20 @@ const NavBar = () => {
   };
 
   return (
-    <div className="navbar bg-base-100">
+    <div
+      className={`navbar fixed z-10 w-full ${navbarScrolled ? "scrolled" : ""}`}
+    >
       {/* Logo in navbar start for lg screens */}
       <div className="navbar-start hidden lg:flex gap-3">
         <Link>
           <img
-            className="w-[30px]"
-            src="https://i.postimg.cc/rFWcNf9q/Default-Make-A-Logo-Whic-Company-NAme-Buildi-Fy-2.jpg"
+            className="w-[30px] rounded-lg"
+            src="https://i.postimg.cc/GtsmszP2/logo.png"
             alt=""
           />
         </Link>
         <Link to="/">
-          <a className=" text-xl">BuildiFy</a>
+          <span className="text-xl">BuildiFy</span>
         </Link>
       </div>
       <div className="navbar-start lg:hidden">
@@ -67,57 +86,63 @@ const NavBar = () => {
           </div>
           <ul
             tabIndex={0}
-            className={`menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 ${
+            className={`menu  menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52 ${
               dropdownOpen ? "block" : "hidden"
             }`}
           >
-            <NavLink to="/" onClick={closeDropdown}>
-              <li>
-                <a>Home</a>
-              </li>
-            </NavLink>
-
-            <NavLink to="/apartMent" onClick={closeDropdown}>
-              <li>
-                <a>Apartment</a>
-              </li>
-            </NavLink>
+            <li>
+              <NavLink to="/" onClick={closeDropdown} activeClassName="active">
+                Home
+              </NavLink>
+            </li>
+            <li>
+              <NavLink
+                to="/apartMent"
+                onClick={closeDropdown}
+                activeClassName="active"
+              >
+                Apartment
+              </NavLink>
+            </li>
             {!User && (
-              <Link to="/singUp" onClick={closeDropdown}>
-                <li>
-                  <a>Sing Up</a>
-                </li>
-              </Link>
+              <li>
+                <NavLink
+                  to="/singUp"
+                  onClick={closeDropdown}
+                  activeClassName="active"
+                >
+                  Sign Up
+                </NavLink>
+              </li>
             )}
           </ul>
         </div>
       </div>
       {/* Logo centered for mobile screens */}
-      <div className="navbar-center flex lg:hidden gap-3">
+      <div className="navbar-center flex lg:hidden gap-2">
         <Link to="/">
           <img
-            className="w-[30px]"
-            src="https://i.postimg.cc/rFWcNf9q/Default-Make-A-Logo-Whic-Company-NAme-Buildi-Fy-2.jpg"
+            className="w-[30px] rounded-lg"
+            src="https://i.postimg.cc/GtsmszP2/logo.png"
             alt=""
           />
         </Link>
         <Link to="/">
-          <a className="text-xl">BuildiFy</a>
+          <span className="text-xl">BuildiFy</span>
         </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <NavLink to="/">
-            <li>
-              <a>Home</a>
-            </li>
-          </NavLink>
-
-          <NavLink to="/apartMent">
-            <li>
-              <a>Apartment</a>
-            </li>
-          </NavLink>
+          <li>
+            <NavLink to="/" activeClassName="active">
+              Home
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/apartMent" activeClassName="active">
+              Apartment
+            </NavLink>
+          </li>
         </ul>
       </div>
 
@@ -125,11 +150,14 @@ const NavBar = () => {
         {!User && (
           <div className="flex gap-4">
             <Link to="/singIn">
-              {" "}
-              <button className=" btn  ">Sing In</button>
+              <button className="btn bg-[#e4ac58] text-white border-0 hover:bg-[#cf9c4f]">
+                Sign In
+              </button>
             </Link>
             <Link to="/singUp">
-              <button className="btn hidden lg:block">Sing Up</button>
+              <button className="btn hidden lg:block bg-[#e4ac58] text-white border-0 hover:bg-[#cf9c4f]">
+                Sign Up
+              </button>
             </Link>
           </div>
         )}
@@ -149,7 +177,6 @@ const NavBar = () => {
                 </span>
               </Dropdown.Header>
               <Dropdown.Item>Dashboard</Dropdown.Item>
-
               <Dropdown.Divider />
               <Dropdown.Item onClick={handleLogOut}>Sign out</Dropdown.Item>
             </Dropdown>

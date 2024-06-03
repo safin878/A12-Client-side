@@ -67,7 +67,7 @@ const FooterEnd = () => {
         <div className="w-full justify-between sm:flex sm:items-center sm:justify-between">
           <Footer.Brand
             href="https://flowbite.com"
-            src="https://i.postimg.cc/rFWcNf9q/Default-Make-A-Logo-Whic-Company-NAme-Buildi-Fy-2.jpg"
+            src="https://i.postimg.cc/GtsmszP2/logo.png"
             name="BuildiFy"
           />
           <Footer.LinkGroup>

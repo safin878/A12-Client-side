@@ -58,7 +58,7 @@ const SingIn = () => {
           <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center">
             {/* form */}
             <div className="md:w-1/2 px-8 md:px-16">
-              <h2 className="font-bold text-2xl text-[#002D74]">
+              <h2 className="font-bold text-2xl text-[#ce9451]">
                 Sign In Now!
               </h2>
               <p className="text-xs mt-4 text-[#002D74]">
@@ -90,7 +90,7 @@ const SingIn = () => {
                     <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z" />
                   </svg>
                 </div>
-                <button className="bg-purple-600 rounded-xl text-white py-2 hover:scale-105 duration-300">
+                <button className="bg-[#c08f57] rounded-xl text-white py-2 hover:scale-105 duration-300">
                   Sign In
                 </button>
               </form>
@@ -108,7 +108,7 @@ const SingIn = () => {
                 <p>Do not have an account?</p>
                 <Link to="/singUp">
                   {" "}
-                  <button className="py-2 px-5 bg-purple-500 text-white hover:bg-color-3 border rounded-xl hover:scale-110 duration-300">
+                  <button className="py-2 px-5 bg-[#aa865c] text-white hover:bg-color-3 border rounded-xl hover:scale-110 duration-300">
                     Sign Up
                   </button>
                 </Link>
@@ -118,7 +118,7 @@ const SingIn = () => {
             <div className="md:block hidden w-1/2">
               <img
                 className="rounded-2xl"
-                src="https://i.postimg.cc/JhwDb6DM/loginImg.jpg"
+                src="https://i.postimg.cc/yNwDkT1N/Default-my-need-not-pinkis-yheme-my-need-minimalist-brownish-t-0.jpg"
               />
             </div>
           </div>

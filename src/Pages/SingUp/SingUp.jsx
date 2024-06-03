@@ -84,7 +84,7 @@ const SingUp = () => {
             <div className="bg-gray-100 flex rounded-2xl shadow-lg max-w-3xl p-5 items-center  flex-row-reverse ">
               {/* form */}
               <div className="md:w-1/2 px-8 md:px-16">
-                <h2 className="font-bold text-2xl text-[#002D74]">
+                <h2 className="font-bold text-2xl text-[#ce9451]">
                   Sing Up Now!
                 </h2>
                 <p className="text-xs mt-4 text-[#002D74]">
@@ -154,7 +154,7 @@ const SingUp = () => {
                     {...register("photo", { required: true })}
                   />
                   {errors.photo && <span>Photo is required</span>}
-                  <button className="bg-purple-600  rounded-xl text-white py-2 hover:scale-105 duration-300 col-span-2 mt-3">
+                  <button className="bg-[#c08f57]  rounded-xl text-white py-2 hover:scale-105 duration-300 col-span-2 mt-3">
                     Sing Up
                   </button>
                 </form>
@@ -171,7 +171,7 @@ const SingUp = () => {
                   <p>Do you have an account?</p>
                   <Link to="/singIn">
                     {" "}
-                    <button className="py-2 px-5   bg-purple-400 text-white border rounded-xl hover:scale-110 duration-300">
+                    <button className="py-2 px-5   bg-[#aa865c] text-white border rounded-xl hover:scale-110 duration-300">
                       Sing In
                     </button>
                   </Link>
@@ -181,7 +181,7 @@ const SingUp = () => {
               <div className="md:block hidden w-1/2">
                 <img
                   className="rounded-2xl"
-                  src="https://i.postimg.cc/CLv18FL2/Default-Building-Management-Registration-page-image-purple-and-1.jpg"
+                  src="https://i.postimg.cc/prNCP85N/Default-my-need-not-pinkis-yheme-my-need-minimalist-brownish-t-3.jpg"
                 />
               </div>
             </div>

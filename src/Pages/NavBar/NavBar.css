@@ -1,13 +1,27 @@
-/* .navbar .active {
-  background-color: rgb(140, 138, 241);
-  border-radius: 10%;
-  color: white;
-  outline: none;
-} */
+.navbar {
+  background-color: transparent;
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
 
-.navbar .menu .active {
+/* Navbar when scrolled */
+.navbar.scrolled {
+  background-color: rgba(255, 255, 255, 0.705);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Active menu item for large and small screens */
+.navbar .menu .active > a,
+.navbar .menu li a.active,
+.navbar .dropdown-content li a.active {
   background-color: rgb(205, 127, 50);
   border-radius: 10px;
   color: white;
   outline: none;
+}
+
+/* Specific styles for menu items (non-active) */
+.navbar .menu li a,
+.navbar .dropdown-content li a {
+  background-color: transparent;
+  color: black;
 }
