@@ -1,9 +1,9 @@
 import { Avatar, Dropdown } from "flowbite-react";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import Swal from "sweetalert2";
-
+import "./NavBar.css";
 const NavBar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const { User, logOut } = useAuth();
@@ -11,9 +11,11 @@ const NavBar = () => {
   const handleLogOut = () => {
     logOut();
     Swal.fire({
-      title: "Sing Out Successful!",
-      text: "You clicked the button!",
+      position: "center",
       icon: "success",
+      title: "Sing Out Successful",
+      showConfirmButton: false,
+      timer: 1500,
     });
   };
 
@@ -28,13 +30,17 @@ const NavBar = () => {
   return (
     <div className="navbar bg-base-100">
       {/* Logo in navbar start for lg screens */}
-      <div className="navbar-start hidden lg:flex">
-        <img
-          className="w-[30px]"
-          src="https://i.postimg.cc/rFWcNf9q/Default-Make-A-Logo-Whic-Company-NAme-Buildi-Fy-2.jpg"
-          alt=""
-        />
-        <a className="btn btn-ghost text-xl">BuildiFy</a>
+      <div className="navbar-start hidden lg:flex gap-3">
+        <Link>
+          <img
+            className="w-[30px]"
+            src="https://i.postimg.cc/rFWcNf9q/Default-Make-A-Logo-Whic-Company-NAme-Buildi-Fy-2.jpg"
+            alt=""
+          />
+        </Link>
+        <Link to="/">
+          <a className=" text-xl">BuildiFy</a>
+        </Link>
       </div>
       <div className="navbar-start lg:hidden">
         <div className="dropdown">
@@ -65,17 +71,17 @@ const NavBar = () => {
               dropdownOpen ? "block" : "hidden"
             }`}
           >
-            <Link to="/" onClick={closeDropdown}>
+            <NavLink to="/" onClick={closeDropdown}>
               <li>
                 <a>Home</a>
               </li>
-            </Link>
+            </NavLink>
 
-            <Link to="/apartMent" onClick={closeDropdown}>
+            <NavLink to="/apartMent" onClick={closeDropdown}>
               <li>
                 <a>Apartment</a>
               </li>
-            </Link>
+            </NavLink>
             {!User && (
               <Link to="/singUp" onClick={closeDropdown}>
                 <li>
@@ -87,27 +93,31 @@ const NavBar = () => {
         </div>
       </div>
       {/* Logo centered for mobile screens */}
-      <div className="navbar-center flex lg:hidden ">
-        <img
-          className="w-[30px]"
-          src="https://i.postimg.cc/rFWcNf9q/Default-Make-A-Logo-Whic-Company-NAme-Buildi-Fy-2.jpg"
-          alt=""
-        />
-        <a className="btn btn-ghost text-xl">BuildiFy</a>
+      <div className="navbar-center flex lg:hidden gap-3">
+        <Link to="/">
+          <img
+            className="w-[30px]"
+            src="https://i.postimg.cc/rFWcNf9q/Default-Make-A-Logo-Whic-Company-NAme-Buildi-Fy-2.jpg"
+            alt=""
+          />
+        </Link>
+        <Link to="/">
+          <a className="text-xl">BuildiFy</a>
+        </Link>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">
-          <Link to="/">
+          <NavLink to="/">
             <li>
               <a>Home</a>
             </li>
-          </Link>
+          </NavLink>
 
-          <Link to="/apartMent">
+          <NavLink to="/apartMent">
             <li>
               <a>Apartment</a>
             </li>
-          </Link>
+          </NavLink>
         </ul>
       </div>
 
@@ -129,11 +139,7 @@ const NavBar = () => {
               arrowIcon={false}
               inline
               label={
-                <Avatar
-                  alt="User settings"
-                  img="https://flowbite.com/docs/images/people/profile-picture-5.jpg"
-                  rounded
-                />
+                <Avatar alt="User settings" img={User?.photoURL} rounded />
               }
             >
               <Dropdown.Header>

@@ -1,0 +1,13 @@
+/* .navbar .active {
+  background-color: rgb(140, 138, 241);
+  border-radius: 10%;
+  color: white;
+  outline: none;
+} */
+
+.navbar .menu .active {
+  background-color: rgb(140, 138, 241);
+  border-radius: 10px;
+  color: white;
+  outline: none;
+}

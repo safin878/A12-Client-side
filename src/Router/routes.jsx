@@ -4,6 +4,7 @@ import Home from "./../Pages/Home/Home";
 import Aparment from "./../Pages/Aparment/Aparment";
 import SingIn from "./../Pages/SingIn/SingIn";
 import SingUp from "../Pages/SingUp/SingUp";
+import PublicRoute from "./PublicRoute";
 
 const router = createBrowserRouter([
   {
@@ -20,11 +21,19 @@ const router = createBrowserRouter([
       },
       {
         path: "/singIn",
-        element: <SingIn></SingIn>,
+        element: (
+          <PublicRoute>
+            <SingIn></SingIn>
+          </PublicRoute>
+        ),
       },
       {
         path: "/singUp",
-        element: <SingUp></SingUp>,
+        element: (
+          <PublicRoute>
+            <SingUp></SingUp>
+          </PublicRoute>
+        ),
       },
     ],
   },
