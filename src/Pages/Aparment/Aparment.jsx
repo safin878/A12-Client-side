@@ -1,5 +1,5 @@
 import { Helmet } from "react-helmet-async";
-import AboutBuilding from "../AboutBuilding/AboutBuilding";
+
 import ApartConten from "./ApartConten";
 
 const Aparment = () => {

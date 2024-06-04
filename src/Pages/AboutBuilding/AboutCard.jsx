@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 const AboutCard = ({ apart }) => {
   return (
     <div className="container mx-auto hover:scale-105 transition">
-      <div className="card w-96 bg-base-100 shadow-xl">
+      <div className="card w-full bg-base-100 shadow-xl h-full">
         <figure>
           <img src={apart.ApartmentImage} alt="Shoes" />
         </figure>

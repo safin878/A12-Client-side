@@ -1,10 +1,50 @@
 import { MdApartment } from "react-icons/md";
 import { RiFloodLine } from "react-icons/ri";
 
+import useAuth from "../../Hooks/useAuth/useAuth";
+import useAxiosSecure from "./../../Hooks/useAxiosSecure/useAxiosSecure";
+import { useLocation, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
+
 const ApartCard = ({ apart }) => {
+  const { User } = useAuth();
+  const axiosSecure = useAxiosSecure();
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const handelAgree = () => {
+    if (User && User.email) {
+      const agreeItems = {
+        name: User?.displayName,
+        email: User?.email,
+        FloorNo: apart.FloorNo,
+        BlockName: apart.BlockName,
+        ApartmentNo: apart.ApartmentNo,
+        Rent: apart.Rent,
+        Status: "pending",
+      };
+      axiosSecure.post("/agreements", agreeItems).then((res) => {
+        console.log(res.data);
+        if (res.data.insertedId) {
+          //   Swal.fire({
+          //     position: "center",
+          //     icon: "success",
+          //     title: "Agreement Added To Cart",
+          //     showConfirmButton: false,
+          //     timer: 1500,
+          //   });
+          toast.success("Added to Cart");
+        }
+      });
+    } else {
+      toast.error("Sing In Fast");
+      navigate("/singIn", { state: { from: location } });
+    }
+  };
+
   return (
-    <div className="container mx-auto hover:scale-105 transition">
-      <div className="card w-96 bg-base-100 shadow-xl">
+    <div className="container mx-auto hover:scale-105 transition ">
+      <div className="card w-full bg-base-100 shadow-xl h-full">
         <figure>
           <img src={apart.ApartmentImage} alt="Shoes" />
         </figure>
@@ -29,7 +69,10 @@ const ApartCard = ({ apart }) => {
           <hr />
 
           <div className="card-actions justify-end">
-            <button className="btn bg-[#dba95d] hover:bg-[#c2924a] text-white">
+            <button
+              onClick={handelAgree}
+              className="btn bg-[#dba95d] hover:bg-[#c2924a] text-white"
+            >
               Agreement
             </button>
           </div>

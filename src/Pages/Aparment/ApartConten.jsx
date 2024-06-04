@@ -18,9 +18,9 @@ const ApartConten = ({ name }) => {
     <>
       <SectionTitle Heading={name}></SectionTitle>
       <div className="container mx-auto md:grid md:grid-cols-3 grid  gap-6">
-        {aparts.map((apart) => {
-          return <ApartCard key={apart._id} apart={apart}></ApartCard>;
-        })}
+        {aparts.map((apart) => (
+          <ApartCard key={apart._id} apart={apart}></ApartCard>
+        ))}
       </div>
     </>
   );

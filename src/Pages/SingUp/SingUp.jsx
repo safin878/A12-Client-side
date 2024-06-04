@@ -77,6 +77,8 @@ const SingUp = () => {
 
       {loading && <LoadingScreen />}
 
+      <div className="h-[75px]"></div>
+
       <div className="p-6">
         <div>
           <section className=" min-h-screen flex items-center justify-center  ">

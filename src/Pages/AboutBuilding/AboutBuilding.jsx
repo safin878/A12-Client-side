@@ -13,8 +13,6 @@ const AboutBuilding = ({ name }) => {
     },
   });
 
-  console.log(aparts);
-
   return (
     <>
       <SectionTitle Heading={name}></SectionTitle>
