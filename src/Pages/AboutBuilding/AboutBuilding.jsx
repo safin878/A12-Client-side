@@ -3,7 +3,7 @@ import AboutCard from "./AboutCard";
 import useAxiosPublic from "./../../Hooks/useAxiosPublic/useAxiosPublic";
 import { useQuery } from "@tanstack/react-query";
 
-const AboutBuilding = () => {
+const AboutBuilding = ({ name }) => {
   const axiosPublic = useAxiosPublic();
   const { data: aparts = [] } = useQuery({
     queryKey: ["users"],
@@ -17,7 +17,7 @@ const AboutBuilding = () => {
 
   return (
     <>
-      <SectionTitle Heading={"About The Building"}></SectionTitle>
+      <SectionTitle Heading={name}></SectionTitle>
       <div className="container mx-auto md:grid md:grid-cols-3 grid  gap-6">
         {aparts.map((apart) => {
           return <AboutCard key={apart._id} apart={apart}></AboutCard>;

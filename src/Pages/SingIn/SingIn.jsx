@@ -50,7 +50,7 @@ const SingIn = () => {
   };
 
   return (
-    <>
+    <div>
       {loading && <LoadingScreen />}
       <div>
         <section className="min-h-screen flex items-center justify-center">
@@ -124,7 +124,7 @@ const SingIn = () => {
           </div>
         </section>
       </div>
-    </>
+    </div>
   );
 };
 

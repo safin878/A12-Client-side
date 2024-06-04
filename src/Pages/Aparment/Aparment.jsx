@@ -1,4 +1,6 @@
 import { Helmet } from "react-helmet-async";
+import AboutBuilding from "../AboutBuilding/AboutBuilding";
+import ApartConten from "./ApartConten";
 
 const Aparment = () => {
   return (
@@ -6,7 +8,17 @@ const Aparment = () => {
       <Helmet>
         <title>BuildiFy || Apartment</title>
       </Helmet>
-      <h1>I Am Aparment</h1>
+      <div>
+        <img
+          src="https://i.postimg.cc/Vkss0ftv/Brown-Aesthetic-and-Minimalist-Apartment-Sale-Promotion-Banner.png"
+          alt=""
+          className="w-full"
+        />
+      </div>
+
+      <div>
+        <ApartConten name="AGREEMENT NOW"></ApartConten>
+      </div>
     </div>
   );
 };
