@@ -5,6 +5,9 @@ import Aparment from "./../Pages/Aparment/Aparment";
 import SingIn from "./../Pages/SingIn/SingIn";
 import SingUp from "../Pages/SingUp/SingUp";
 import PublicRoute from "./PublicRoute";
+import PrivateRoutes from "./PrivateRoute";
+import Dashboard from "../Pages/Dashboard/Dashboard";
+import MyProfile from "../Pages/Dashboard/MyProfile";
 
 const router = createBrowserRouter([
   {
@@ -34,6 +37,24 @@ const router = createBrowserRouter([
           <PublicRoute>
             <SingUp></SingUp>
           </PublicRoute>
+        ),
+      },
+    ],
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <PrivateRoutes>
+        <Dashboard></Dashboard>
+      </PrivateRoutes>
+    ),
+    children: [
+      {
+        path: "myProfile",
+        element: (
+          <PrivateRoutes>
+            <MyProfile></MyProfile>
+          </PrivateRoutes>
         ),
       },
     ],

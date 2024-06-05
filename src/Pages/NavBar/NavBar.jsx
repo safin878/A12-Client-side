@@ -176,7 +176,9 @@ const NavBar = () => {
                   {User?.email}
                 </span>
               </Dropdown.Header>
-              <Dropdown.Item>Dashboard</Dropdown.Item>
+              <Link to="/dashboard/myProfile">
+                <Dropdown.Item>Dashboard</Dropdown.Item>
+              </Link>
               <Dropdown.Divider />
               <Dropdown.Item onClick={handleLogOut}>Sign out</Dropdown.Item>
             </Dropdown>
