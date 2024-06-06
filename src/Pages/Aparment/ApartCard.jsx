@@ -21,7 +21,8 @@ const ApartCard = ({ apart }) => {
         BlockName: apart.BlockName,
         ApartmentNo: apart.ApartmentNo,
         Rent: apart.Rent,
-        Status: "pending",
+        requestDate: new Date(),
+        status: "pending",
       };
       axiosSecure.post("/agreements", agreeItems).then((res) => {
         console.log(res.data);
