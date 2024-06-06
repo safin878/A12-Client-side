@@ -88,7 +88,7 @@ const Dashboard = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/AddItems">
+                  <NavLink to="/dashboard/mangeMembers">
                     <FaUsers></FaUsers>
                     Mange Members
                   </NavLink>
@@ -100,7 +100,7 @@ const Dashboard = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/AddItems">
+                  <NavLink to="/dashboard/AgreementReq">
                     <LuGitPullRequestClosed />
                     Agreement Request
                   </NavLink>

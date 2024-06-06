@@ -26,13 +26,6 @@ const ApartCard = ({ apart }) => {
       axiosSecure.post("/agreements", agreeItems).then((res) => {
         console.log(res.data);
         if (res.data.insertedId) {
-          //   Swal.fire({
-          //     position: "center",
-          //     icon: "success",
-          //     title: "Agreement Added To Cart",
-          //     showConfirmButton: false,
-          //     timer: 1500,
-          //   });
           toast.success("Added to Cart");
         }
       });

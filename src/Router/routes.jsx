@@ -8,6 +8,8 @@ import PublicRoute from "./PublicRoute";
 import PrivateRoutes from "./PrivateRoute";
 import Dashboard from "../Pages/Dashboard/Dashboard";
 import MyProfile from "../Pages/Dashboard/MyProfile";
+import MangeMembers from "../Pages/Dashboard/Admin/MangeMembers";
+import AgreementReq from "../Pages/Dashboard/Admin/AgreementReq";
 
 const router = createBrowserRouter([
   {
@@ -54,6 +56,22 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <MyProfile></MyProfile>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "mangeMembers",
+        element: (
+          <PrivateRoutes>
+            <MangeMembers></MangeMembers>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "agreementReq",
+        element: (
+          <PrivateRoutes>
+            <AgreementReq></AgreementReq>
           </PrivateRoutes>
         ),
       },
