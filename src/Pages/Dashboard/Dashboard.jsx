@@ -36,7 +36,7 @@ const Dashboard = () => {
 
   return (
     <div className="flex gap-10">
-      <div className="w-64 min-h-screen bg-orange-400 flex flex-col justify-between ">
+      <div className="w-64 min-h-screen bg-[#d89339] flex flex-col justify-between ">
         {role === "user" && (
           <div>
             <ul className="menu">
@@ -94,7 +94,7 @@ const Dashboard = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/AddItems">
+                  <NavLink to="/dashboard/makeAnnouncement">
                     <TfiAnnouncement></TfiAnnouncement>
                     Make Announcement
                   </NavLink>
@@ -106,7 +106,7 @@ const Dashboard = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/AddItems">
+                  <NavLink to="/dashboard/manageCoupon">
                     <LuTicket></LuTicket>
                     Manage Coupon
                   </NavLink>

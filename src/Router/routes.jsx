@@ -10,6 +10,8 @@ import Dashboard from "../Pages/Dashboard/Dashboard";
 import MyProfile from "../Pages/Dashboard/MyProfile";
 import MangeMembers from "../Pages/Dashboard/Admin/MangeMembers";
 import AgreementReq from "../Pages/Dashboard/Admin/AgreementReq";
+import ManageCupon from "../Pages/Dashboard/Admin/ManageCupon";
+import MakeAnnouncement from "../Pages/Dashboard/Admin/MakeAnnouncement";
 
 const router = createBrowserRouter([
   {
@@ -72,6 +74,22 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <AgreementReq></AgreementReq>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "manageCoupon",
+        element: (
+          <PrivateRoutes>
+            <ManageCupon></ManageCupon>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "makeAnnouncement",
+        element: (
+          <PrivateRoutes>
+            <MakeAnnouncement></MakeAnnouncement>
           </PrivateRoutes>
         ),
       },
