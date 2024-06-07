@@ -16,13 +16,14 @@ const AgreementReq = () => {
     },
   });
 
-  const updateAgreementStatus = async ({ id, status }) => {
-    await axiosSecure.patch(`/agreements/${id}`, { status });
+  const updateAgreementStatus = async ({ id, status, checkedDate }) => {
+    await axiosSecure.patch(`/agreements/${id}`, { status, checkedDate });
   };
 
-  const updateUserRole = async (email) => {
-    await axiosSecure.patch(`/users/updates/${email}`, { role: "member" });
+  const updateUserRole = async (email, role) => {
+    await axiosSecure.patch(`/users/updates/${email}`, { role });
   };
+
   const mutation = useMutation({
     mutationFn: updateAgreementStatus,
     onError: (error) => {
@@ -34,22 +35,30 @@ const AgreementReq = () => {
   });
 
   const handleAccept = async (agreement) => {
-    // console.log("Accepting agreement:", agreement);
     try {
-      await mutation.mutateAsync({ id: agreement._id, status: "checked" });
+      await mutation.mutateAsync({
+        id: agreement._id,
+        status: "checked",
+        checkedDate: new Date(),
+      });
       console.log("Agreement accepted successfully.");
-      await updateUserRole(agreement.email);
+      await updateUserRole(agreement.email, "member");
       console.log("User role updated successfully.");
     } catch (error) {
       console.error("Acceptance error:", error);
     }
   };
 
-  const handleReject = async (id) => {
-    // console.log("Rejecting agreement:", id);
+  const handleReject = async (agreement) => {
     try {
-      await mutation.mutateAsync({ id, status: "rejected" });
+      await mutation.mutateAsync({
+        id: agreement._id,
+        status: "rejected",
+        checkedDate: new Date(),
+      });
       console.log("Agreement rejected successfully.");
+      await updateUserRole(agreement.email, "user");
+      console.log("User role updated successfully.");
     } catch (error) {
       console.error("Rejection error:", error);
     }
@@ -100,18 +109,11 @@ const AgreementReq = () => {
                 ) : (
                   <td
                     className="text-[20px]   "
-                    onClick={() => handleReject(agreement._id)}
+                    onClick={() => handleReject(agreement)}
                   >
                     <RxCross2 />
                   </td>
                 )}
-
-                {/* <td
-                  className="text-[20px]  "
-                  onClick={() => handleReject(agreement._id)}
-                >
-                  <RxCross2 />
-                </td> */}
 
                 {agreement.status === "checked" ? (
                   <td>
@@ -127,13 +129,6 @@ const AgreementReq = () => {
                     <FaCheck />
                   </td>
                 )}
-
-                {/* <td
-                  className="text-[20px] btn m-2 "
-                  onClick={() => handleAccept(agreement)}
-                >
-                  <FaCheck />
-                </td> */}
               </tr>
             ))}
           </tbody>

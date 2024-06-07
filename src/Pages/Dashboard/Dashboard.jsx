@@ -9,6 +9,8 @@ import Swal from "sweetalert2";
 import useRole from "../../Hooks/useRole/useRole";
 import { LuGitPullRequestClosed } from "react-icons/lu";
 import { LuTicket } from "react-icons/lu";
+import { FaMoneyCheckDollar } from "react-icons/fa6";
+import { FaHistory } from "react-icons/fa";
 
 const Dashboard = () => {
   const { logOut } = useAuth();
@@ -68,9 +70,21 @@ const Dashboard = () => {
                   </NavLink>
                 </li>
                 <li>
+                  <NavLink to="/dashboard/makePayment">
+                    <FaMoneyCheckDollar />
+                    Make Payment
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink to="/dashboard/makePayment">
+                    <FaHistory />
+                    Payment History
+                  </NavLink>
+                </li>
+                <li>
                   <NavLink to="/dashboard/AddItems">
                     <TfiAnnouncement></TfiAnnouncement>
-                    Member
+                    Announcement
                   </NavLink>
                 </li>
               </>
