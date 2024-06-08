@@ -12,6 +12,9 @@ import MangeMembers from "../Pages/Dashboard/Admin/MangeMembers";
 import AgreementReq from "../Pages/Dashboard/Admin/AgreementReq";
 import ManageCupon from "../Pages/Dashboard/Admin/ManageCupon";
 import MakeAnnouncement from "../Pages/Dashboard/Admin/MakeAnnouncement";
+import MakePayment from "./../Pages/Dashboard/Member/MakePayment";
+import PaymentHistory from "../Pages/Dashboard/Member/PaymentHistory";
+import Announcement from "../Pages/Dashboard/Announcement";
 
 const router = createBrowserRouter([
   {
@@ -58,6 +61,30 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <MyProfile></MyProfile>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "announcements",
+        element: (
+          <PrivateRoutes>
+            <Announcement></Announcement>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "makePayment",
+        element: (
+          <PrivateRoutes>
+            <MakePayment></MakePayment>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "paymentHistory",
+        element: (
+          <PrivateRoutes>
+            <PaymentHistory></PaymentHistory>
           </PrivateRoutes>
         ),
       },

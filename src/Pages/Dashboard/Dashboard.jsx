@@ -50,9 +50,9 @@ const Dashboard = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/AddItems">
+                  <NavLink to="/dashboard/announcements">
                     <TfiAnnouncement></TfiAnnouncement>
-                    User
+                    Announcements
                   </NavLink>
                 </li>
               </>
@@ -76,13 +76,13 @@ const Dashboard = () => {
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/makePayment">
+                  <NavLink to="/dashboard/paymentHistory">
                     <FaHistory />
                     Payment History
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink to="/dashboard/AddItems">
+                  <NavLink to="/dashboard/announcements">
                     <TfiAnnouncement></TfiAnnouncement>
                     Announcement
                   </NavLink>
