@@ -1,7 +1,9 @@
+import SectionTitle from "./../../../Componenents/SectionTitle/SectionTitle";
+
 const PaymentHistory = () => {
   return (
     <div>
-      <h1>Payment History</h1>
+      <SectionTitle Heading={"Payment History"}></SectionTitle>
     </div>
   );
 };

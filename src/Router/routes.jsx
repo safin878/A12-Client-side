@@ -15,6 +15,7 @@ import MakeAnnouncement from "../Pages/Dashboard/Admin/MakeAnnouncement";
 import MakePayment from "./../Pages/Dashboard/Member/MakePayment";
 import PaymentHistory from "../Pages/Dashboard/Member/PaymentHistory";
 import Announcement from "../Pages/Dashboard/Announcement";
+import Payment from "./../Pages/Dashboard/Member/Payment";
 
 const router = createBrowserRouter([
   {
@@ -77,6 +78,14 @@ const router = createBrowserRouter([
         element: (
           <PrivateRoutes>
             <MakePayment></MakePayment>
+          </PrivateRoutes>
+        ),
+      },
+      {
+        path: "Payment",
+        element: (
+          <PrivateRoutes>
+            <Payment></Payment>
           </PrivateRoutes>
         ),
       },
