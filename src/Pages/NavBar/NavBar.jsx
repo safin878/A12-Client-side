@@ -54,8 +54,6 @@ const NavBar = () => {
     );
   }
 
-  console.log(role);
-
   return (
     <div
       className={`navbar fixed z-10 w-full ${navbarScrolled ? "scrolled" : ""}`}
