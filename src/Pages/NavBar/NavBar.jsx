@@ -4,11 +4,13 @@ import { Link, NavLink } from "react-router-dom";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import Swal from "sweetalert2";
 import "./NavBar.css";
+import useRole from "../../Hooks/useRole/useRole";
 
 const NavBar = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [navbarScrolled, setNavbarScrolled] = useState(false);
   const { User, logOut } = useAuth();
+  const [role, isLoading] = useRole();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -43,6 +45,16 @@ const NavBar = () => {
   const closeDropdown = () => {
     setDropdownOpen(false);
   };
+
+  if (isLoading) {
+    return (
+      <div className="fixed inset-0 flex items-center justify-center bg-gray-700 bg-opacity-75 z-50">
+        <span className="loading loading-bars loading-lg text-blue-500"></span>
+      </div>
+    );
+  }
+
+  console.log(role);
 
   return (
     <div
@@ -176,9 +188,21 @@ const NavBar = () => {
                   {User?.email}
                 </span>
               </Dropdown.Header>
-              <Link to="/dashboard/myProfile">
-                <Dropdown.Item>Dashboard</Dropdown.Item>
-              </Link>
+              {role === "admin" && (
+                <Link to="/dashboard/adminProfile">
+                  <Dropdown.Item>Dashboard</Dropdown.Item>
+                </Link>
+              )}
+              {role === "member" && (
+                <Link to="/dashboard/myProfile">
+                  <Dropdown.Item>Dashboard</Dropdown.Item>
+                </Link>
+              )}
+              {role === "user" && (
+                <Link to="/dashboard/myProfile">
+                  <Dropdown.Item>Dashboard</Dropdown.Item>
+                </Link>
+              )}
               <Dropdown.Divider />
               <Dropdown.Item onClick={handleLogOut}>Sign out</Dropdown.Item>
             </Dropdown>
