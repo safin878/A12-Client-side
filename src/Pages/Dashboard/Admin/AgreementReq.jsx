@@ -34,16 +34,46 @@ const AgreementReq = () => {
     },
   });
 
+  // const handleAccept = async (agreement) => {
+  //   try {
+  //     await mutation.mutateAsync({
+  //       id: agreement._id,
+  //       status: "checked",
+  //       checkedDate: new Date(),
+  //     });
+  //     console.log("Agreement accepted successfully.");
+  //     await updateUserRole(agreement.email, "member");
+  //     console.log("User role updated successfully.");
+  //   } catch (error) {
+  //     console.error("Acceptance error:", error);
+  //   }
+  // };
+
   const handleAccept = async (agreement) => {
     try {
+      const checkedDate = new Date();
+
+      // Update agreement status
       await mutation.mutateAsync({
         id: agreement._id,
         status: "checked",
-        checkedDate: new Date(),
+        checkedDate,
       });
       console.log("Agreement accepted successfully.");
+
+      // Update user role
       await updateUserRole(agreement.email, "member");
       console.log("User role updated successfully.");
+
+      // Send additional info to agreeMentInfoCollection
+      await axiosSecure.post("/agreementsInfo", {
+        FloorNo: agreement.FloorNo,
+        BlockName: agreement.BlockName,
+        ApartmentNo: agreement.ApartmentNo,
+        email: agreement.email,
+        checkedDate,
+      });
+      console.log("Agreement info added successfully.");
     } catch (error) {
       console.error("Acceptance error:", error);
     }

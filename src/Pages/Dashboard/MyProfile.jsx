@@ -2,12 +2,23 @@ import { Helmet } from "react-helmet-async";
 import useAuth from "../../Hooks/useAuth/useAuth";
 import useRole from "../../Hooks/useRole/useRole";
 import SectionTitle from "./../../Componenents/SectionTitle/SectionTitle";
-import useAgree from "../../Hooks/useAgree/useAgree";
+import useAxiosSecure from "../../Hooks/useAxiosSecure/useAxiosSecure";
+import { useQuery } from "@tanstack/react-query";
 
 const MyProfile = () => {
   const { User } = useAuth();
   const [role] = useRole();
-  const [cart] = useAgree();
+
+  const axiosSecure = useAxiosSecure();
+
+  const { data: cart = [] } = useQuery({
+    queryKey: ["cart", User?.email],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/agreeInfo/${User.email}`);
+      return res.data;
+    },
+  });
+
   console.log(cart);
 
   const formatDate = (dateString) => {

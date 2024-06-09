@@ -12,7 +12,31 @@ const ApartCard = ({ apart }) => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const handelAgree = () => {
+  // const handelAgree = () => {
+  //   if (User && User.email) {
+  //     const agreeItems = {
+  //       name: User?.displayName,
+  //       email: User?.email,
+  //       FloorNo: apart.FloorNo,
+  //       BlockName: apart.BlockName,
+  //       ApartmentNo: apart.ApartmentNo,
+  //       Rent: apart.Rent,
+  //       requestDate: new Date(),
+  //       status: "pending",
+  //     };
+  //     axiosSecure.post("/agreements", agreeItems).then((res) => {
+  //       console.log(res.data);
+  //       if (res.data.insertedId) {
+  //         toast.success("Added to Cart");
+  //       }
+  //     });
+  //   } else {
+  //     toast.error("Sing In Fast");
+  //     navigate("/singIn", { state: { from: location } });
+  //   }
+  // };
+
+  const handelAgree = async () => {
     if (User && User.email) {
       const agreeItems = {
         name: User?.displayName,
@@ -24,15 +48,21 @@ const ApartCard = ({ apart }) => {
         requestDate: new Date(),
         status: "pending",
       };
-      axiosSecure.post("/agreements", agreeItems).then((res) => {
-        console.log(res.data);
+      try {
+        const res = await axiosSecure.post("/agreements", agreeItems);
         if (res.data.insertedId) {
           toast.success("Added to Cart");
         }
-      });
+      } catch (error) {
+        if (error.response && error.response.status === 400) {
+          toast.error("Action not permitted: Agreement already exists");
+        } else {
+          toast.error("Failed to add agreement");
+        }
+      }
     } else {
-      toast.error("Sing In Fast");
-      navigate("/singIn", { state: { from: location } });
+      toast.error("Sign In First");
+      navigate("/signIn", { state: { from: location } });
     }
   };
 
