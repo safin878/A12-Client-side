@@ -30,7 +30,8 @@ const router = createBrowserRouter([
       {
         path: "/apartMent",
         element: <Aparment></Aparment>,
-        loader: () => fetch("http://localhost:5000/apartmentsCount"),
+        loader: () =>
+          fetch("https://buildify-server.vercel.app/apartmentsCount"),
       },
       {
         path: "/singIn",

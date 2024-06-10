@@ -5,6 +5,8 @@ import useAgree from "../../../Hooks/useAgree/useAgree";
 import useAuth from "../../../Hooks/useAuth/useAuth";
 import Swal from "sweetalert2";
 import { MonthContext } from "../../../Provider/MonthProvider";
+import { useNavigate } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 
 const CheckOutFrom = () => {
   const [Error, setError] = useState("");
@@ -13,12 +15,17 @@ const CheckOutFrom = () => {
   const [discountPercentage, setDiscountPercentage] = useState(0);
   const [originalPrice, setOriginalPrice] = useState(0);
   const [finalPrice, setFinalPrice] = useState(0);
+  const [loadingCoupon, setLoadingCoupon] = useState(false);
+  const [loadingPayment, setLoadingPayment] = useState(false);
+
   const stripe = useStripe();
   const elements = useElements();
   const { User } = useAuth();
   const [cart] = useAgree();
   const axiosSecure = useAxiosSecure();
   const { month } = useContext(MonthContext);
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const PayPrice = cart?.length > 0 ? parseInt(cart[0]?.Rent) : 0;
   console.log("Month", month);
@@ -53,6 +60,7 @@ const CheckOutFrom = () => {
   }, [axiosSecure, PayPrice, discountPercentage]);
 
   const handleCouponApply = async () => {
+    setLoadingCoupon(true);
     try {
       const res = await axiosSecure.post("/validate-coupon", { couponCode });
       if (res.data.valid) {
@@ -67,6 +75,8 @@ const CheckOutFrom = () => {
         "Error validating coupon code:",
         error.response?.data || error.message
       );
+    } finally {
+      setLoadingCoupon(false);
     }
   };
 
@@ -76,6 +86,7 @@ const CheckOutFrom = () => {
       return;
     }
 
+    setLoadingPayment(true);
     const card = elements.getElement(CardElement);
     if (card === null) {
       return;
@@ -88,6 +99,8 @@ const CheckOutFrom = () => {
 
     if (error) {
       setError(error.message);
+      setLoadingPayment(false);
+      return;
     } else {
       console.log("[PaymentMethod]", paymentMethod);
       setError("");
@@ -106,6 +119,8 @@ const CheckOutFrom = () => {
 
     if (confirmError) {
       console.log("confirm Error");
+      setLoadingPayment(false);
+      return;
     } else {
       if (paymentIntent.status === "succeeded") {
         Swal.fire({
@@ -115,28 +130,36 @@ const CheckOutFrom = () => {
           showConfirmButton: false,
           timer: 1500,
         });
-      }
 
-      const payment = {
-        email: User?.email,
-        price: finalPrice,
-        date: new Date(),
-        cartId: cart[0]._id,
-        transactionId: paymentIntent.id,
-        month: month,
-      };
+        const payment = {
+          email: User?.email,
+          price: finalPrice,
+          date: new Date(),
+          cartId: cart[0]._id,
+          transactionId: paymentIntent.id,
+          month: month,
+        };
 
-      await axiosSecure.post("/payments", payment).then((res) => {
-        console.log("Payment Success", res.data);
-        if (res.data.insertedId) {
-          setCouponCode("");
-          setDiscountPercentage(0);
-          setOriginalPrice(0);
-          setFinalPrice(0);
-          setClientSecret("");
-          elements.getElement(CardElement).clear();
+        try {
+          const response = await axiosSecure.post("/payments", payment);
+          if (response.data.insertedId) {
+            setCouponCode("");
+            setDiscountPercentage(0);
+            setOriginalPrice(0);
+            setFinalPrice(0);
+            setClientSecret("");
+            elements.getElement(CardElement).clear();
+            queryClient.invalidateQueries("agreementCollection");
+            navigate("/dashboard/paymentHistory");
+          }
+        } catch (error) {
+          console.error(
+            "Payment Success but failed to remove agreement",
+            error
+          );
         }
-      });
+      }
+      setLoadingPayment(false);
     }
   };
 
@@ -152,8 +175,9 @@ const CheckOutFrom = () => {
       <button
         className="mx-2 btn text-white my-2 hover:bg-[#bb813e] bg-[#cf893a]"
         onClick={handleCouponApply}
+        disabled={loadingCoupon}
       >
-        Apply Coupon
+        {loadingCoupon ? "Applying..." : "Apply Coupon"}
       </button>
       {discountPercentage > 0 && (
         <div className="mb-3">
@@ -182,9 +206,9 @@ const CheckOutFrom = () => {
         <button
           className="btn text-white my-2 hover:bg-[#bb813e] bg-[#cf893a]"
           type="submit"
-          disabled={!stripe || !clientSecret}
+          disabled={!stripe || !clientSecret || loadingPayment}
         >
-          Pay
+          {loadingPayment ? "Processing..." : "Pay"}
         </button>
       </form>
       <p className="text-red-500">{Error}</p>

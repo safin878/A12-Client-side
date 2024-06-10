@@ -25,8 +25,6 @@ const Cupon = () => {
     },
   });
 
-  console.log(coupons);
-
   return (
     <div>
       <SectionTitle Heading="New Coupons"></SectionTitle>

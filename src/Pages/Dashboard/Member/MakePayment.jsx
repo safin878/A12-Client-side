@@ -9,11 +9,6 @@ const MakePayment = () => {
   const { setMonth } = useContext(MonthContext);
   const navigate = useNavigate();
 
-  // const handleMonthChange = (e) => {
-  //   const selectedMonth = e.target.value;
-  //   setMonth(selectedMonth); // Set the selected month in the context
-  // };
-
   const handelSubmit = (e) => {
     e.preventDefault();
     const month = e.target.month.value;

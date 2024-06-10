@@ -62,7 +62,7 @@ const ApartCard = ({ apart }) => {
       }
     } else {
       toast.error("Sign In First");
-      navigate("/signIn", { state: { from: location } });
+      navigate("/singIn", { state: { from: location } });
     }
   };
 
